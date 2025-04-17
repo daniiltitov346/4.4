@@ -158,27 +158,35 @@ void MyString::trimLeadingSpaces() {
     length = newLength;
 }
 
-// Добавление отсутствующих символов из другой строки
 void MyString::addMissingChars(const MyString& other) {
-    if (!other.data) return;  // Вторая строка пуста
+    if (!other.data) return;  // Если вторая строка пуста, ничего не делаем
 
-    size_t maxLength = (length > other.length) ? length : other.length;
-    char* newData = new char[maxLength + 1];
+    // Определяем новую длину (максимальная из двух строк)
+    size_t newLength = (length > other.length) ? length : other.length;
 
-    for (size_t i = 0; i < maxLength; ++i) {
-        if (i < length && data[i] != '\0') {
-            newData[i] = data[i];
-        }
-        else if (i < other.length && other.data[i] != '\0') {
+    char* newData = new char[newLength + 1];
+
+    for (size_t i = 0; i < newLength; ++i) {
+        // Если в текущей строке символ есть, но во второй строке тоже есть символ на этой позиции
+        if (i < other.length && other.data[i] != '\0') {
+            // Заменяем символ из второй строки
             newData[i] = other.data[i];
         }
+        // Если в текущей строке символ есть, а во второй строке нет символа на этой позиции
+        else if (i < length && data[i] != '\0') {
+            // Оставляем символ из текущей строки
+            newData[i] = data[i];
+        }
+        // Если в обеих строках нет символа на этой позиции
         else {
-            newData[i] = ' ';  // Если символ отсутствует в обеих строках, вставляем пробел
+            // Заполняем пробелом (или другим значением по умолчанию)
+            newData[i] = ' ';
         }
     }
-    newData[maxLength] = '\0';
+    newData[newLength] = '\0';  // Завершаем строку
 
+    // Освобождаем старые данные и сохраняем новые
     delete[] data;
     data = newData;
-    length = maxLength;
+    length = newLength;
 }

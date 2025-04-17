@@ -22,7 +22,7 @@ int main() {
     std::cout << "s1 after trim leading spaces: " << s1 << std::endl;
 
     // Тестирование добавления отсутствующих символов
-    MyString s5("123");
+    MyString s5("123123123");
     MyString s6("ABCDEF");
     s5.addMissingChars(s6);
     std::cout << "s5 after adding missing chars from s6: " << s5 << std::endl;
