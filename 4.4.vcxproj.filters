@@ -18,12 +18,12 @@
     <ClCompile Include="4.4.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="string.cpp">
+    <ClCompile Include="MyString.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="string.h">
+    <ClInclude Include="MyString.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

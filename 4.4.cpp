@@ -1,31 +1,42 @@
-﻿#include "string.h"
+﻿#include "MyString.h"
 #include <iostream>
 
 int main() {
-    // Тестирование конструкторов
-    MyString s1("  Hello");
-    MyString s2("World!");
-    MyString s3 = s1;
-    MyString s4 = std::move(s2);
+    // Тест 1: Замена и дополнение символов
+    MyString str1("ABCDEF");
+    MyString str2("123456789");
 
-    std::cout << "s1: " << s1 << std::endl;
-    std::cout << "s2 (moved from): " << s2 << std::endl;  // Должно быть пусто
-    std::cout << "s3 (copy of s1): " << s3 << std::endl;
-    std::cout << "s4 (moved from s2): " << s4 << std::endl;
+    std::cout << "Test 1:" << std::endl;
+    std::cout << "Original string: " << str1 << " (length: " << str1.getLength() << ")" << std::endl;
+    std::cout << "Modifier string: " << str2 << " (length: " << str2.getLength() << ")" << std::endl;
 
-    // Тестирование вставки символа
-    s1.insertChar('X', 3);
-    std::cout << "s1 after insert 'X' at pos 3: " << s1 << std::endl;
+    str1.addMissingChars(str2);
+    std::cout << "Result after addMissingChars: " << str1 << " (length: " << str1.getLength() << ")" << std::endl;
+    std::cout << "Expected result: 123456789" << std::endl << std::endl;
 
-    // Тестирование удаления ведущих пробелов
-    s1.trimLeadingSpaces();
-    std::cout << "s1 after trim leading spaces: " << s1 << std::endl;
+    // Тест 2: Частичная замена символов
+    MyString str3("HelloWorld");
+    MyString str4("12345");
 
-    // Тестирование добавления отсутствующих символов
-    MyString s5("123123123");
-    MyString s6("ABCDEF");
-    s5.addMissingChars(s6);
-    std::cout << "s5 after adding missing chars from s6: " << s5 << std::endl;
+    std::cout << "Test 2:" << std::endl;
+    std::cout << "Original string: " << str3 << " (length: " << str3.getLength() << ")" << std::endl;
+    std::cout << "Modifier string: " << str4 << " (length: " << str4.getLength() << ")" << std::endl;
+
+    str3.addMissingChars(str4);
+    std::cout << "Result after addMissingChars: " << str3 << " (length: " << str3.getLength() << ")" << std::endl;
+    std::cout << "Expected result: 12345World" << std::endl << std::endl;
+
+    // Тест 3: Вторая строка короче
+    MyString str5("PrefixText");
+    MyString str6("ABC");
+
+    std::cout << "Test 3:" << std::endl;
+    std::cout << "Original string: " << str5 << " (length: " << str5.getLength() << ")" << std::endl;
+    std::cout << "Modifier string: " << str6 << " (length: " << str6.getLength() << ")" << std::endl;
+
+    str5.addMissingChars(str6);
+    std::cout << "Result after addMissingChars: " << str5 << " (length: " << str5.getLength() << ")" << std::endl;
+    std::cout << "Expected result: ABCixText" << std::endl;
 
     return 0;
 }
