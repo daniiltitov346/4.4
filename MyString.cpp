@@ -117,25 +117,42 @@ void MyString::trimLeadingSpaces() {
 }
 
 void MyString::addMissingChars(const MyString& other) {
-    if (!other.data) return;
+    if (!other.data || !data) return;
 
-    size_t newLength = (length > other.length) ? length : other.length;
-    char* newData = new char[newLength + 1];
+    // Проверяем какие символы из второй строки уже есть в первой
+    bool charExists[256] = { false };
+    for (size_t i = 0; i < length; ++i) {
+        charExists[static_cast<unsigned char>(data[i])] = true;
+    }
 
-    for (size_t i = 0; i < newLength; ++i) {
-        if (i < other.length) {
-            newData[i] = other.data[i];
-        }
-        else if (i < length) {
-            newData[i] = data[i];
-        }
-        else {
-            newData[i] = ' ';
+    // Считаем сколько новых символов нужно добавить
+    size_t newCharsCount = 0;
+    for (size_t i = 0; i < other.length; ++i) {
+        if (!charExists[static_cast<unsigned char>(other.data[i])]) {
+            newCharsCount++;
         }
     }
-    newData[newLength] = '\0';
 
+    // Создаем новый буфер
+    char* newData = new char[length + newCharsCount + 1];
+    size_t newPos = 0;
+
+    // Сначала добавляем новые символы из второй строки
+    for (size_t i = 0; i < other.length; ++i) {
+        if (!charExists[static_cast<unsigned char>(other.data[i])]) {
+            newData[newPos++] = other.data[i];
+        }
+    }
+
+    // Затем добавляем оригинальную строку
+    for (size_t i = 0; i < length; ++i) {
+        newData[newPos++] = data[i];
+    }
+
+    newData[newPos] = '\0';
+
+    // Обновляем данные
     delete[] data;
     data = newData;
-    length = newLength;
+    length = newPos;
 }

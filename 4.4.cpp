@@ -27,7 +27,7 @@ int main() {
     std::cout << "Expected result: 12345World" << std::endl << std::endl;
 
     // Тест 3: Вторая строка короче
-    MyString str5("PrefixText");
+    MyString str5("PrefixAText");
     MyString str6("ABC");
 
     std::cout << "Test 3:" << std::endl;
@@ -39,4 +39,4 @@ int main() {
     std::cout << "Expected result: ABCixText" << std::endl;
 
     return 0;
-}
+} 
